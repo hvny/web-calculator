@@ -1,7 +1,8 @@
 .calc__input {
     width: 360px;
     height: 70px;
-    background-color: #595959;
+    background-color: #4a5741;
+    color: #ffffff;
     margin: 20px 0 20px 0;
     outline: none;
     border: none;
