@@ -1,0 +1,28 @@
+@import url("../vendor/normalize.css");
+@import url("../vendor/fonts.css");
+
+/*page*/
+
+@import url("../blocks/page/page.css");
+
+/*header*/
+
+@import url("../blocks/header/header.css");
+@import url("../blocks/header/__title/header__title.css");
+
+/*calculator*/
+
+@import url("../blocks/calculator/calculator.css");
+
+/*calc*/
+
+@import url("../blocks/calc/calc.css");
+@import url("../blocks/calc/__input/calc__input.css");
+@import url("../blocks/calc/__buttons-list/calc__buttons-list.css");
+@import url("../blocks/calc/__list-item/calc__list-item.css");
+@import url("../blocks/calc/__button/calc__button.css");
+
+/*footer*/
+
+@import url("../blocks/footer/footer.css");
+@import url("../blocks/footer/__title/footer__title.css");

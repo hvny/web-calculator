@@ -1,0 +1,18 @@
+.calc__buttons-list {
+    width: 360px;
+    padding: 0;
+    margin: 0 auto 0 auto;
+    box-sizing: border-box;
+    list-style: none;
+    display: flex;
+    flex-flow: row wrap;
+    row-gap: 13px;
+    justify-content: space-between;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .calc__buttons-list {
+        width: 288px;
+        row-gap: 10px;
+    }
+}

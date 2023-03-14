@@ -1,0 +1,31 @@
+.calc__button {
+    width: 80px;
+    height: 80px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #595959;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 40px;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in;
+}
+
+.calc__button:hover {
+    opacity: .6;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .calc__button {
+        width: 64px;
+        height: 64px;
+        font-size: 32px;
+        line-height: 32px;
+        border-radius: 16px;
+    }
+}

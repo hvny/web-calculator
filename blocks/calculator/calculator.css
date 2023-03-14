@@ -1,0 +1,10 @@
+.calculator {
+    width: 400px;
+    margin: 0 auto 0 auto;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .calculator {
+        width: 320px;
+    }
+}
