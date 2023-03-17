@@ -9,7 +9,6 @@ symbolButtonList.forEach((elem) => {
 });
 
 
-
 /*функция вывода значений кнопок на экран*/
 const printSymbol = (string, someButton) => {
     string += someButton;
@@ -17,8 +16,12 @@ const printSymbol = (string, someButton) => {
     return string;
 };
 
+/*функция вывода математических символов*/
 const printMathSymbol = (string, someButton) => {
     if (isInputEmpty(string)) {
+        return string;
+    } else if (symbolList.includes(string.substring(string.length - 1))) {
+        console.log(string[string.length - 1]);
         return string;
     } else {
         return printSymbol(string, someButton);
