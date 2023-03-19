@@ -9,6 +9,19 @@
     }
 }
 
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    @keyframes open-popup {
+        from {
+            top: -130px;
+            opacity: 0;
+        }
+        to {
+            top: 6px;
+            opacity: 1;
+        }
+    }
+}
+
 .popup_visible {
     animation: open-popup 1.8s forwards ease;
 }
