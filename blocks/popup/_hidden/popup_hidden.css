@@ -1,0 +1,14 @@
+@keyframes close-popup {
+    from {
+        right: 0;
+        opacity: 1;
+    }
+    to {
+        right: -328px;
+        opacity: 0;
+    }
+}
+
+.popup_hidden {
+    animation: close-popup 1.8s forwards ease;
+}

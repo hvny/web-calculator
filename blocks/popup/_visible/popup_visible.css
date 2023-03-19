@@ -1,0 +1,14 @@
+@keyframes open-popup {
+    from {
+        right: -328px;
+        opacity: 0;
+    }
+    to {
+        right: 0;
+        opacity: 1;
+    }
+}
+
+.popup_visible {
+    animation: open-popup 1.8s forwards ease;
+}

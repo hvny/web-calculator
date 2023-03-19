@@ -9,6 +9,7 @@
 
 @import url("../blocks/header/header.css");
 @import url("../blocks/header/__title/header__title.css");
+@import url("../blocks/header/__info-button/header__info-button.css");
 
 /*calculator*/
 
@@ -26,3 +27,11 @@
 
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__title/footer__title.css");
+
+/*popup*/
+
+@import url("../blocks/popup/popup.css");
+@import url("../blocks/popup/_visible/popup_visible.css");
+@import url("../blocks/popup/_hidden/popup_hidden.css");
+@import url("../blocks/popup/__title/popup__title.css");
+@import url("../blocks/popup/__text/popup__text.css");

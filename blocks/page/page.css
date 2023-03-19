@@ -1,6 +1,8 @@
 .page {
     min-height: 100vh;
+    overflow: hidden;
     background: linear-gradient(90deg, #FFD700, #CC0000);
     background: -webkit-linear-gradient(90deg, #FFD700, #CC0000);
     font-family: "Pobeda", "Arial", sans-serif;
+    position: relative;
 }
