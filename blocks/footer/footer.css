@@ -1,6 +1,6 @@
 .footer {
     width: 400px;
-    height: calc((100vh - 500px)/2);
+    height: fit-content;
     margin: 0 auto 0 auto;
 }
 
