@@ -21,7 +21,6 @@ const printMathSymbol = (string, someButton) => {
     if (isInputEmpty(string)) {
         return string;
     } else if (symbolList.includes(string.substring(string.length - 1))) {
-        console.log(string[string.length - 1]);
         return string;
     } else {
         return printSymbol(string, someButton);
@@ -31,10 +30,8 @@ const printMathSymbol = (string, someButton) => {
 /*функция проверки инпута на предмет пустоты?*/
 const isInputEmpty = (string) => {
     if (string.length == 0) {
-        console.log("empty");
         return true;
     } else {
-        console.log("not empty");
         return false;
     }
 }
@@ -76,6 +73,24 @@ const getNumbers = (string) => {
 };
 
 
+
+
+const divide = (string, numberList, symbolList) => {
+    string = numberList[0] / numberList[1];
+};
+
+
+/*функция округления*/
+const rounding = (string) => {
+    if (string.substring(string.length - 1) == 0) {
+        return rounding(string.substring(0, string.length - 1));
+    } else if (string.substring(string.length - 1) == ".") {
+        return string.substring(0, string.length - 1);
+    } else {
+        return string;
+    }
+};
+
 /*функция, в которой происходят вычисления*/
 const calculation = (string, numberList, symbolList) => {
     if (symbolList.length !== 0) {
@@ -87,10 +102,10 @@ const calculation = (string, numberList, symbolList) => {
                 string = numberList[0] - numberList[1];
                 break;
             case "×":
-                string = (numberList[0] * numberList[1]).toFixed(4);
+                string = rounding((numberList[0] * numberList[1]).toFixed(4));
                 break;
             case "÷":
-                string = (numberList[0] / numberList[1]).toFixed(4);
+                string = rounding((numberList[0] / numberList[1]).toFixed(4));
                 break;
             default:
                 string = string;
