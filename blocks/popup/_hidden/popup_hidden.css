@@ -9,8 +9,29 @@
     }
 }
 
+@-webkit-keyframes close-popup {
+    from {
+        right: 0;
+        opacity: 1;
+    }
+    to {
+        right: -328px;
+        opacity: 0;
+    }
+}
+
 @media screen and (min-width: 320px) and (max-width: 767px) {
     @keyframes close-popup {
+        from {
+            top: 6px;
+            opacity: 1;
+        }
+        to {
+            top: -130px;
+            opacity: 0;
+        }
+    }
+    @-webkit-keyframes close-popup {
         from {
             top: 6px;
             opacity: 1;
