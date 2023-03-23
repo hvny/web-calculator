@@ -14,6 +14,11 @@ calcForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
 });
 
+const isNumeric = (string) => {
+    return !isNaN(string);
+};
+
+
 
 /*функция вывода значений кнопок на экран*/
 const printSymbol = (string, someButton) => {
@@ -71,22 +76,25 @@ const getMathSymbols = (string) => {
             mathSymbols.push(string[i]);
         }
     }
-    console.log("getMathSymbols", mathSymbols);
+    console.log("mathSymbols", mathSymbols);
     return mathSymbols;
 };
 
 /*функция получения чисел из инпута*/
-const getNumbers = (string) => {
+const getNumbers = (string) => { //спорно, надо бы переделать, но пока хз как
     let numbers = [];
+    let index = 0;
     for (let i = 0; i < string.length; i++) {
         if (listOfMathSymbols.includes(string[i])) {
             if (i == 0 && isMinus(string)) {
                 continue;
             }
-            numbers.push(string.substring(0, i));
-            numbers.push(string.substring(i + 1, string.length));
+            numbers.push(string.substring(index, i));
+            index = i + 1;
         }
     }
+    numbers.push(string.substring(index));
+
     console.log("numbers", numbers);
     return numbers;
 };
