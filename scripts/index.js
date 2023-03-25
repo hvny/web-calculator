@@ -18,8 +18,6 @@ const isNumeric = (string) => {
     return !isNaN(string);
 };
 
-
-
 /*функция вывода значений кнопок на экран*/
 const printSymbol = (string, someButton) => {
     string += someButton;
@@ -113,7 +111,6 @@ const rounding = (string) => {
 /*функция, в которой происходят вычисления*/
 const calculation = (string, numberList, symbolList) => {
     let res = Number(numberList[0]);
-
     if (symbolList.length !== 0 && !symbolList.includes(string.substring(string.length - 1))) {
         for (let i = 0; i < symbolList.length; i++) {
             switch (symbolList[i]) {
@@ -134,8 +131,8 @@ const calculation = (string, numberList, symbolList) => {
                     break;
             }
         }
+        string = res;
     }
-    string = res;
     return string;
 };
 
@@ -145,7 +142,6 @@ numberButtonList.forEach((elem) => {
         calcInput.value = printSymbol(calcInput.value, elem.textContent);
     });
 })
-
 
 symbolButtonList.forEach((elem) => {
     if (elem.id !== "button-pointer" && elem.id !== "button-equal") {
