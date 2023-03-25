@@ -99,6 +99,7 @@ const getNumbers = (string) => { //спорно, надо бы передела�
 
 /*функция округления*/
 const rounding = (string) => {
+    string = String(string);
     if (string.substring(string.length - 1) == 0) {
         return rounding(string.substring(0, string.length - 1));
     } else if (string.substring(string.length - 1) == ".") {
@@ -131,7 +132,7 @@ const calculation = (string, numberList, symbolList) => {
                     break;
             }
         }
-        string = res;
+        string = rounding(res.toFixed(4));
     }
     return string;
 };
