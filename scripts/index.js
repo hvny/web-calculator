@@ -20,9 +20,13 @@ const isNumeric = (string) => {
 
 /*функция вывода значений кнопок на экран*/
 const printSymbol = (string, someButton) => {
-    string += someButton;
-    console.log(someButton);
-    return string;
+    if (string.substring(string.length - 1) == "÷" && someButton == 0) {
+        return string;
+    } else {
+        string += someButton;
+        console.log(someButton);
+        return string;
+    }
 };
 
 /*функция проверки инпута на пустоту*/
@@ -40,8 +44,8 @@ const printMathSymbol = (string, someButton) => {
         return string;
     } else if (isInputEmpty(string) && someButton == "-") {
         return printSymbol(string, someButton);
-    } else if (listOfMathSymbols.includes(string.substring(string.length - 1))) { //если символ уже есть в инпуте,
-        return string; //то сразу после негоо нельзя печатать мат. символ
+    } else if (listOfMathSymbols.includes(string.substring(string.length - 1)) || !isNumeric(string[string.length - 1])) { //если символ уже есть в инпуте,
+        return string; //то сразу после него нельзя печатать мат. символ
     } else {
         return printSymbol(string, someButton);
     }
@@ -111,6 +115,7 @@ const rounding = (string) => {
 
 /*функция, в которой происходят вычисления*/
 const calculation = (string, numberList, symbolList) => {
+    let keepGoing = true;
     let res = Number(numberList[0]);
     if (symbolList.length !== 0 && !symbolList.includes(string.substring(string.length - 1))) {
         for (let i = 0; i < symbolList.length; i++) {
