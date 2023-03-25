@@ -99,14 +99,6 @@ const getNumbers = (string) => { //спорно, надо бы передела�
     return numbers;
 };
 
-
-
-
-const divide = (string, numberList, symbolList) => {
-    string = numberList[0] / numberList[1];
-};
-
-
 /*функция округления*/
 const rounding = (string) => {
     if (string.substring(string.length - 1) == 0) {
@@ -120,27 +112,31 @@ const rounding = (string) => {
 
 /*функция, в которой происходят вычисления*/
 const calculation = (string, numberList, symbolList) => {
+    let res = Number(numberList[0]);
+
     if (symbolList.length !== 0 && !symbolList.includes(string.substring(string.length - 1))) {
-        switch (symbolList[0]) {
-            case "+":
-                string = Number(numberList[0]) + Number(numberList[1]);
-                break;
-            case "-":
-                string = numberList[0] - numberList[1];
-                break;
-            case "×":
-                string = rounding((numberList[0] * numberList[1]).toFixed(4));
-                break;
-            case "÷":
-                string = rounding((numberList[0] / numberList[1]).toFixed(4));
-                break;
-            default:
-                string = string;
-                break;
+        for (let i = 0; i < symbolList.length; i++) {
+            switch (symbolList[i]) {
+                case "+":
+                    res += Number(numberList[i + 1]);
+                    break;
+                case "-":
+                    res -= Number(numberList[i + 1]);
+                    break;
+                case "×":
+                    res *= Number(numberList[i + 1]);
+                    break;
+                case "÷":
+                    res /= Number(numberList[i + 1]);
+                    break;
+                default:
+                    string = string;
+                    break;
+            }
         }
     }
+    string = res;
     return string;
-
 };
 
 
