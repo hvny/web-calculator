@@ -14,20 +14,34 @@ calcForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
 });
 
+const inputError = () => {
+    calcInput.style.backgroundColor = "#CC0000";
+    setTimeout(() => {
+        calcInput.style.backgroundColor = "#4a5741";
+    }, 400);
+};
+const hideInputError = () => {
+    calcInput.style.backgroundColor = "#4a5741";
+    console.log("hide");
+};
+
 const isNumeric = (string) => {
     return !isNaN(string);
 };
 
+
+
 /*функция вывода значений кнопок на экран*/
 const printSymbol = (string, someButton) => {
-    if (string.substring(string.length - 1) == "÷" && someButton == 0) {
-        return string;
+    if (string.substring(string.length - 1) == "÷" && someButton == 0) { //если последний символ в инпуте - знак деления, то нельзя вводить ноль
+        inputError();
     } else {
         string += someButton;
         console.log(someButton);
-        return string;
     }
+    return string;
 };
+
 
 /*функция проверки инпута на пустоту*/
 const isInputEmpty = (string) => {
@@ -162,6 +176,5 @@ symbolButtonList.forEach((elem) => {
         elem.addEventListener("click", () => {
             calcInput.value = calculation(calcInput.value, getNumbers(calcInput.value), getMathSymbols(calcInput.value));
         })
-
     }
 })
