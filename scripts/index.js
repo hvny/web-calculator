@@ -3,26 +3,32 @@ const calcInput = calcForm.elements.calcInput;
 const numberButtonList = Array.from(calcForm.querySelectorAll(".number"));
 const symbolButtonList = Array.from(calcForm.querySelectorAll(".symbol"));
 
-/*список математических символов*/
-const listOfMathSymbols = [];
+
+/*список символов*/
+const listOfSymbols = [];
 symbolButtonList.forEach((elem) => {
-    listOfMathSymbols.push(elem.textContent);
+    listOfSymbols.push(elem.textContent);
 });
+
+/*словарь с мат. знаками и их приоритетом*/
+const symbolDict = {
+    "-": 0,
+    "+": 0,
+    "×": 1,
+    "÷": 1
+};
 
 /*отменяем стандартное поведение браузера*/
 calcForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
 });
 
+/*инпут становится красным*/
 const inputError = () => {
     calcInput.style.backgroundColor = "#CC0000";
     setTimeout(() => {
         calcInput.style.backgroundColor = "#4a5741";
-    }, 400);
-};
-const hideInputError = () => {
-    calcInput.style.backgroundColor = "#4a5741";
-    console.log("hide");
+    }, 200);
 };
 
 const isNumeric = (string) => {
@@ -30,11 +36,13 @@ const isNumeric = (string) => {
 };
 
 
-
 /*функция вывода значений кнопок на экран*/
 const printSymbol = (string, someButton) => {
     if (string.substring(string.length - 1) == "÷" && someButton == 0) { //если последний символ в инпуте - знак деления, то нельзя вводить ноль
         inputError();
+    } else if (someButton == 0 && string[string.indexOf(someButton) - 1] == 0) {
+        console.log("ok");
+        //return string;
     } else {
         string += someButton;
         console.log(someButton);
@@ -58,7 +66,7 @@ const printMathSymbol = (string, someButton) => {
         return string;
     } else if (isInputEmpty(string) && someButton == "-") {
         return printSymbol(string, someButton);
-    } else if (listOfMathSymbols.includes(string.substring(string.length - 1)) || !isNumeric(string[string.length - 1])) { //если символ уже есть в инпуте,
+    } else if (listOfSymbols.includes(string.substring(string.length - 1)) || !isNumeric(string[string.length - 1])) { //если символ уже есть в инпуте,
         return string; //то сразу после него нельзя печатать мат. символ
     } else {
         return printSymbol(string, someButton);
@@ -83,12 +91,12 @@ const isMinus = (string) => {
 
 /*функция получения математических символов из инпута*/
 const getMathSymbols = (string) => {
-    let mathSymbols = [];
+    const mathSymbols = [];
     for (let i = 0; i < string.length; i++) {
         if (i == 0 && isMinus(string)) {
             continue;
         }
-        if (listOfMathSymbols.includes(string[i])) {
+        if (listOfSymbols.includes(string[i])) {
             mathSymbols.push(string[i]);
         }
     }
@@ -101,7 +109,7 @@ const getNumbers = (string) => { //спорно, надо бы передела�
     let numbers = [];
     let index = 0;
     for (let i = 0; i < string.length; i++) {
-        if (listOfMathSymbols.includes(string[i])) {
+        if (listOfSymbols.includes(string[i])) {
             if (i == 0 && isMinus(string)) {
                 continue;
             }
@@ -127,54 +135,78 @@ const rounding = (string) => {
     }
 };
 
-/*функция, в которой происходят вычисления*/
-const calculation = (string, numberList, symbolList) => {
-    let keepGoing = true;
-    let res = Number(numberList[0]);
+/*считает промежуточный результат*/
+const interimResult = (number1, number2, action) => {
+    let interimRes;
+    switch (action) {
+        case "+":
+            interimRes = Number(number1) + Number(number2);
+            break;
+        case "-":
+            interimRes = Number(number1) - Number(number2);
+            break;
+        case "×":
+            interimRes = Number(number1) * Number(number2);
+            break;
+        case "÷":
+            interimRes = Number(number1) / Number(number2);
+            break;
+        default:
+            break;
+    }
+    return interimRes;
+}
+
+/*тут происходят вычисления*/
+const calculation = (string, numberList, symbolList, result = string) => {
+    let res = 0;
     if (symbolList.length !== 0 && !symbolList.includes(string.substring(string.length - 1))) {
-        for (let i = 0; i < symbolList.length; i++) {
-            switch (symbolList[i]) {
-                case "+":
-                    res += Number(numberList[i + 1]);
-                    break;
-                case "-":
-                    res -= Number(numberList[i + 1]);
-                    break;
-                case "×":
-                    res *= Number(numberList[i + 1]);
-                    break;
-                case "÷":
-                    res /= Number(numberList[i + 1]);
-                    break;
-                default:
-                    string = string;
-                    break;
-            }
+        if (symbolList.includes("×") || symbolList.includes("÷")) {
+            symbolList.forEach((symbol) => {
+                if (symbolDict[symbol] == 1) {
+                    res = numberList[symbolList.indexOf(symbol)];
+                    result = interimResult(res, numberList[symbolList.indexOf(symbol) + 1], symbol);
+                    console.log("result", result);
+                    numberList.splice(symbolList.indexOf(symbol), 2, result);
+                    symbolList.splice(symbolList.indexOf(symbol), 1);
+                    result = rounding(calculation(string, numberList, symbolList, result).toFixed(4));
+                }
+            })
+        } else {
+            symbolList.forEach((symbol) => {
+                res = numberList[symbolList.indexOf(symbol)];
+                console.log("res", res);
+                result = interimResult(res, numberList[symbolList.indexOf(symbol) + 1], symbol);
+                numberList.splice(symbolList.indexOf(symbol), 2, result);
+                symbolList.splice(symbolList.indexOf(symbol), 1);
+                result = calculation(string, numberList, symbolList, result);
+            });
         }
-        string = rounding(res.toFixed(4));
     }
-    return string;
-};
+    return result;
+}
 
 
-numberButtonList.forEach((elem) => {
-    elem.addEventListener("click", () => {
-        calcInput.value = printSymbol(calcInput.value, elem.textContent);
-    });
-})
-
-symbolButtonList.forEach((elem) => {
-    if (elem.id !== "button-pointer" && elem.id !== "button-equal") {
+const setEventListeners = () => {
+    numberButtonList.forEach((elem) => {
         elem.addEventListener("click", () => {
-            calcInput.value = printMathSymbol(calcInput.value, elem.textContent);
+            calcInput.value = printSymbol(calcInput.value, elem.textContent);
         });
-    } else if (elem.id == "button-pointer") {
-        elem.addEventListener("click", () => {
-            calcInput.value = deleteSymbol(calcInput.value);
-        });
-    } else if (elem.id = "button-equal") {
-        elem.addEventListener("click", () => {
-            calcInput.value = calculation(calcInput.value, getNumbers(calcInput.value), getMathSymbols(calcInput.value));
-        })
-    }
-})
+    })
+    symbolButtonList.forEach((elem) => {
+        if (elem.id !== "button-pointer" && elem.id !== "button-equal") {
+            elem.addEventListener("click", () => {
+                calcInput.value = printMathSymbol(calcInput.value, elem.textContent);
+            });
+        } else if (elem.id == "button-pointer") {
+            elem.addEventListener("click", () => {
+                calcInput.value = deleteSymbol(calcInput.value);
+            });
+        } else if (elem.id = "button-equal") {
+            elem.addEventListener("click", () => {
+                calcInput.value = calculation(calcInput.value, getNumbers(calcInput.value), getMathSymbols(calcInput.value));
+            })
+        }
+    })
+}
+setEventListeners();
