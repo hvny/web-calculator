@@ -184,22 +184,22 @@ const calculation = (string, numberList, symbolList, result = string) => {
                 if (symbolDict[symbol] == 1) {
                     res = numberList[symbolList.indexOf(symbol)];
                     result = interimResult(res, numberList[symbolList.indexOf(symbol) + 1], symbol);
-                    console.log("result", result);
                     numberList.splice(symbolList.indexOf(symbol), 2, result);
                     symbolList.splice(symbolList.indexOf(symbol), 1);
-                    result = rounding(calculation(string, numberList, symbolList, result).toFixed(4));
+                    result = calculation(string, numberList, symbolList, result);
                 }
             })
         } else {
             symbolList.forEach((symbol) => {
                 res = numberList[symbolList.indexOf(symbol)];
-                console.log("res", res);
                 result = interimResult(res, numberList[symbolList.indexOf(symbol) + 1], symbol);
                 numberList.splice(symbolList.indexOf(symbol), 2, result);
                 symbolList.splice(symbolList.indexOf(symbol), 1);
                 result = calculation(string, numberList, symbolList, result);
             });
         }
+    } else {
+        result = rounding(result.toFixed(4));
     }
     return result;
 }
