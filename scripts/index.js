@@ -44,7 +44,6 @@ const isPossibleToPrintZero = (string) => {
         }
         for (let i = string.length - 1; i > 0; i--) {
             if (listOfSymbols.includes(string[i - 1]) && string[i] == 0) {
-                console.log(string[i - 1]);
                 return false;
             } else {
                 return true;
@@ -59,11 +58,9 @@ const printSymbol = (string, someButton) => {
     if (string.substring(string.length - 1) == "÷" && someButton == 0) { //если последний символ в инпуте - знак деления, то нельзя вводить ноль
         inputError();
     } else if (!isPossibleToPrintZero(string) && someButton == 0) {
-        console.log("ok");
         return string;
     } else {
         string += someButton;
-        console.log(someButton);
     }
     return string;
 };
@@ -94,7 +91,6 @@ const printMathSymbol = (string, someButton) => {
 /*функция удаления одного символа из инпута*/
 const deleteSymbol = (string) => {
     string = string.substring(0, string.length - 1);
-    console.log(string);
     return string;
 };
 
@@ -118,7 +114,6 @@ const getMathSymbols = (string) => {
             mathSymbols.push(string[i]);
         }
     }
-    console.log("mathSymbols", mathSymbols);
     return mathSymbols;
 };
 
@@ -136,8 +131,6 @@ const getNumbers = (string) => { //спорно, надо бы передела�
         }
     }
     numbers.push(string.substring(index));
-
-    console.log("numbers", numbers);
     return numbers;
 };
 
