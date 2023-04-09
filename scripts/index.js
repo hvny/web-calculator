@@ -36,13 +36,31 @@ const isNumeric = (string) => {
 };
 
 
+/*функция, которая фиксит возможность ввода множества нулей подряд*/
+const isPossibleToPrintZero = (string) => {
+    if (string.length > 0) {
+        if (string[0] == 0) {
+            return false;
+        }
+        for (let i = string.length - 1; i > 0; i--) {
+            if (listOfSymbols.includes(string[i - 1]) && string[i] == 0) {
+                console.log(string[i - 1]);
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+    return true;
+};
+
 /*функция вывода значений кнопок на экран*/
 const printSymbol = (string, someButton) => {
     if (string.substring(string.length - 1) == "÷" && someButton == 0) { //если последний символ в инпуте - знак деления, то нельзя вводить ноль
         inputError();
-    } else if (someButton == 0 && string[string.indexOf(someButton) - 1] == 0) {
+    } else if (!isPossibleToPrintZero(string) && someButton == 0) {
         console.log("ok");
-        //return string;
+        return string;
     } else {
         string += someButton;
         console.log(someButton);
