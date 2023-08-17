@@ -1,7 +1,7 @@
 .calc__buttons-list {
     width: 360px;
     padding: 0;
-    margin: 0 auto 0 auto;
+    margin: 20px auto 0 auto;
     box-sizing: border-box;
     list-style: none;
     display: flex;

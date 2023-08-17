@@ -3,7 +3,6 @@ const calcInput = calcForm.elements.calcInput;
 const numberButtonList = Array.from(calcForm.querySelectorAll(".number"));
 const symbolButtonList = Array.from(calcForm.querySelectorAll(".symbol"));
 
-
 /*список символов*/
 const listOfSymbols = [];
 symbolButtonList.forEach((elem) => {
@@ -26,15 +25,19 @@ calcForm.addEventListener("submit", (evt) => {
 /*инпут становится красным*/
 const inputError = () => {
     calcInput.style.backgroundColor = "#CC0000";
+    calcInput.style.width = "355px";
+    calcInput.style.height = "65px";
+
     setTimeout(() => {
         calcInput.style.backgroundColor = "#4a5741";
+        calcInput.style.width = "360px";
+        calcInput.style.height = "70px";
     }, 200);
 };
 
 const isNumeric = (string) => {
     return !isNaN(string);
 };
-
 
 /*функция, которая фиксит возможность ввода множества нулей подряд*/
 const isPossibleToPrintZero = (string) => {
@@ -191,12 +194,13 @@ const calculation = (string, numberList, symbolList, result = string) => {
                 result = calculation(string, numberList, symbolList, result);
             });
         }
+    } else if (symbolList.includes(string.substring(string.length - 1))) {
+        return result;
     } else {
         result = rounding(result.toFixed(4));
     }
     return result;
 }
-
 
 const setEventListeners = () => {
     numberButtonList.forEach((elem) => {
@@ -220,4 +224,5 @@ const setEventListeners = () => {
         }
     })
 }
+
 setEventListeners();

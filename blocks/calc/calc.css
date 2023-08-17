@@ -2,6 +2,8 @@
     width: 400px;
     height: 500px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
     background-color: #454545;
     border-radius: 20px;
     box-sizing: border-box;
