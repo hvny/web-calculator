@@ -14,7 +14,7 @@
 @media screen and (min-width: 320px) and (max-width: 767px) {
     .calc {
         width: 320px;
-        height: 400px;
+        height: 420px;
         border-radius: 16px;
     }
 }

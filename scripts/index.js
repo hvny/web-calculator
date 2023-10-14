@@ -25,13 +25,13 @@ calcForm.addEventListener("submit", (evt) => {
 /*инпут становится красным*/
 const inputError = () => {
     calcInput.style.backgroundColor = "#CC0000";
-    calcInput.style.width = "355px";
-    calcInput.style.height = "65px";
+    // calcInput.style.width = "355px";
+    // calcInput.style.height = "65px";
 
     setTimeout(() => {
         calcInput.style.backgroundColor = "#4a5741";
-        calcInput.style.width = "360px";
-        calcInput.style.height = "70px";
+        // calcInput.style.width = "360px";
+        // calcInput.style.height = "70px";
     }, 200);
 };
 
